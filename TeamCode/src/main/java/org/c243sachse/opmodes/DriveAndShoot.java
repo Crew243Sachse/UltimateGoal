@@ -2,10 +2,12 @@ package org.c243sachse.opmodes;
 
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.c243sachse.hardware.Shooter;
 import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
 
+@TeleOp(name = "Drive and Shoot")
 public class DriveAndShoot extends OpMode {
     private SampleMecanumDrive drive;
     private Shooter shooter;
@@ -28,7 +30,7 @@ public class DriveAndShoot extends OpMode {
                 new Pose2d(
                         -gamepad1.left_stick_y,
                         -gamepad1.left_stick_x,
-                        -gamepad1.right_stick_x
+                        -(gamepad1.right_stick_x / 4)
                 )
         );
 
