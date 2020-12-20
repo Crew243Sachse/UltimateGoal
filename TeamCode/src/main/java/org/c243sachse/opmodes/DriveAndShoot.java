@@ -44,6 +44,6 @@ public class DriveAndShoot extends OpMode {
         if (gamepad1.a) shooter.fire();
         if (gamepad1.dpad_up) shooter.arm();
         if (gamepad1.dpad_down) shooter.disarm();
-        shooter.update(telemetry);
+        shooter.updateSystem(telemetry);
     }
 }

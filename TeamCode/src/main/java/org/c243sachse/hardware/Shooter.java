@@ -18,7 +18,7 @@ public class Shooter implements UpdatingSystem {
     }
 
     @Override
-    public void update(Telemetry telemetry) {
+    public void updateSystem(Telemetry telemetry) {
         if (System.currentTimeMillis() > shootTime && isArmed()) {
             feed.setPosition(0);
             shootTime = -1;

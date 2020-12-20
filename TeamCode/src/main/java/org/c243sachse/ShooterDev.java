@@ -16,7 +16,7 @@ public class ShooterDev extends OpMode {
 
     @Override
     public void loop() {
-        shooter.update(telemetry);
+        shooter.updateSystem(telemetry);
         if (gamepad1.a){
             shooter.fire();
         }
