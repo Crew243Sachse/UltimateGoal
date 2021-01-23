@@ -9,12 +9,12 @@ import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
 
 @TeleOp(name = "Drive and Shoot")
 public class DriveAndShoot extends OpMode {
-    private SampleMecanumDrive drive;
+    //private SampleMecanumDrive drive;
     private Shooter shooter;
 
     @Override
     public void init() {
-        drive = new SampleMecanumDrive(hardwareMap);
+        //drive = new SampleMecanumDrive(hardwareMap);
         shooter = new Shooter(hardwareMap);
     }
 
@@ -26,20 +26,20 @@ public class DriveAndShoot extends OpMode {
     }
 
     private void updateDrive() {
-        drive.setWeightedDrivePower(
-                new Pose2d(
-                        -gamepad1.left_stick_y,
-                        -gamepad1.left_stick_x,
-                        -(gamepad1.right_stick_x / 4)
-                )
-        );
-
-        drive.update();
-
-        Pose2d poseEstimate = drive.getPoseEstimate();
-        telemetry.addData("x", poseEstimate.getX());
-        telemetry.addData("y", poseEstimate.getY());
-        telemetry.addData("heading", poseEstimate.getHeading());
+//        drive.setWeightedDrivePower(
+//                new Pose2d(
+//                        -gamepad1.left_stick_y,
+//                        -gamepad1.left_stick_x,
+//                        -(gamepad1.right_stick_x / 4)
+//                )
+//        );
+//
+//        drive.update();
+//
+//        Pose2d poseEstimate = drive.getPoseEstimate();
+//        telemetry.addData("x", poseEstimate.getX());
+//        telemetry.addData("y", poseEstimate.getY());
+//        telemetry.addData("heading", poseEstimate.getHeading());
     }
 
     private void updateShooter() {

@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 public class Shooter implements UpdatingSystem {
-    private final double targetVelocity = 1800;
+    private final double targetVelocity = 2200;
     private final DcMotorEx flywheel;
     private final Servo feed;
     private long shootTime = -1;
