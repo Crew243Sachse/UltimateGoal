@@ -17,6 +17,7 @@ public class ShootOnly extends OpMode {
     @Override
     public void loop() {
         updateShooter();
+        telemetry.update();
     }
 
     private void updateShooter() {
