@@ -37,4 +37,9 @@ public class Robot implements UpdatingSystem {
         long sec = current % 60;
         telemetry.addData("uptime", String.format("%d:%d", min, sec));
     }
+
+    @Override
+    public boolean isBusy() {
+        return drive.isBusy() | shooter.isBusy() | wobbleLift.isBusy();
+    }
 }

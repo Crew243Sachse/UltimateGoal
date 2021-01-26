@@ -10,4 +10,11 @@ public class WobbleLift implements UpdatingSystem {
     public void updateSystem(Telemetry telemetry) {
 
     }
+
+    @Override
+    public boolean isBusy() {
+        return false;
+    }
+
+
 }

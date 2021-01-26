@@ -1,4 +1,4 @@
-package org.c243sachse.opmodes;
+package org.c243sachse.opmodes.base;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
@@ -8,7 +8,6 @@ import org.c243sachse.util.LynxVersionReport;
 public abstract class CrewOpModeBase extends OpMode {
     private LynxVersionReport lynxVersionReport;
     protected Robot robot;
-    protected double forwardRatio = 16/11;
 
     protected void updateShooter() {
         if (gamepad1.a) robot.shooter.fire();

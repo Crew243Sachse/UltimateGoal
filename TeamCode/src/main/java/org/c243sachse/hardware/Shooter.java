@@ -25,6 +25,12 @@ public class Shooter implements UpdatingSystem {
         }
     }
 
+    @Override
+    public boolean isBusy() {
+        if (flywheel.getVelocity() < 10) return false;
+        return isArmed() && shootTime == -1;
+    }
+
     public void fire(){
         if (shootTime == -1){
             arm();
