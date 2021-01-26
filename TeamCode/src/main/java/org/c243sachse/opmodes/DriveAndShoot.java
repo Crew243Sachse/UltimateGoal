@@ -26,11 +26,4 @@ public class DriveAndShoot extends CrewOpModeBase {
                 )
         );
     }
-
-    private void updateShooter() {
-        if (gamepad1.a) robot.shooter.fire();
-        if (gamepad1.dpad_up) robot.shooter.arm();
-        if (gamepad1.dpad_down) robot.shooter.disarm();
-        robot.shooter.updateSystem(telemetry);
-    }
 }

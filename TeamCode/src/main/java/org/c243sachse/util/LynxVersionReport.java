@@ -10,6 +10,7 @@ import java.util.List;
 public class LynxVersionReport {
     private List<LynxModule> modules;
 
+
     public LynxVersionReport(HardwareMap hardwareMap){
         modules = hardwareMap.getAll(LynxModule.class);
     }
