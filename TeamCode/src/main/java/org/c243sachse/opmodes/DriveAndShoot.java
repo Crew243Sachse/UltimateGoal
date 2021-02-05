@@ -7,6 +7,8 @@ import org.c243sachse.opmodes.base.CrewOpModeBase;
 
 @TeleOp(name = "Drive and Shoot")
 public class DriveAndShoot extends CrewOpModeBase {
+    private final double moveScale = .6;
+    private final double rotateScale = .3;
 
     @Override
     public void loop() {
@@ -16,11 +18,12 @@ public class DriveAndShoot extends CrewOpModeBase {
     }
 
     private void updateDrive() {
+        
         robot.drive.setWeightedDrivePower(
                 new Pose2d(
-                        -gamepad1.left_stick_y,
-                        -gamepad1.left_stick_x,
-                        -(gamepad1.right_stick_x / 4)
+                        (gamepad1.right_stick_x * moveScale),
+                        (gamepad1.right_stick_y * moveScale),
+                        -(gamepad1.left_stick_x * rotateScale)
                 )
         );
     }
