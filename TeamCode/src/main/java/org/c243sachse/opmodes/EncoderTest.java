@@ -1,5 +1,6 @@
 package org.c243sachse.opmodes;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -8,6 +9,7 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 import java.util.Arrays;
 import java.util.List;
 
+@Disabled()
 @TeleOp(name = "Encoder Test")
 public class EncoderTest extends OpMode {
     private DcMotorEx leftFront, leftRear, rightRear, rightFront;

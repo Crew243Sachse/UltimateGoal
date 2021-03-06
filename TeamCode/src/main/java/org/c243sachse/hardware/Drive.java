@@ -32,6 +32,10 @@ import com.qualcomm.robotcore.hardware.VoltageSensor;
 import com.qualcomm.robotcore.hardware.configuration.typecontainers.MotorConfigurationType;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
+import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
+import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
+import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
+import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
 import org.firstinspires.ftc.teamcode.util.LynxModuleUtil;
 
@@ -93,6 +97,8 @@ public class Drive extends MecanumDrive implements UpdatingSystem {
 
     private final VoltageSensor batteryVoltageSensor;
 
+    private double reset_angle = 0;
+
     public Drive(HardwareMap hardwareMap) {
         super(kV, kA, kStatic, TRACK_WIDTH, TRACK_WIDTH, LATERAL_MULTIPLIER);
 
@@ -149,8 +155,8 @@ public class Drive extends MecanumDrive implements UpdatingSystem {
             setPIDFCoefficients(DcMotor.RunMode.RUN_USING_ENCODER, MOTOR_VELO_PID);
         }
 
-        rightFront.setDirection(DcMotorSimple.Direction.REVERSE);
-        rightRear.setDirection(DcMotorSimple.Direction.REVERSE);
+        leftFront.setDirection(DcMotorSimple.Direction.REVERSE);
+        leftRear.setDirection(DcMotorSimple.Direction.REVERSE);
     }
 
     @NonNull
@@ -238,6 +244,29 @@ public class Drive extends MecanumDrive implements UpdatingSystem {
         }
 
         setDrivePower(vel);
+    }
+
+    public void driveFieldCentric(double xInput, double yInput, double rotationInput){
+        double rotationScaling = Math.sqrt(Math.pow(1 - Math.abs(rotationInput), 2) / 2);
+        double scaledX = xInput * rotationScaling; //Accounts for rotation when limiting magnitude to be less than 1
+        double scaledY = yInput * rotationScaling;
+
+        double gyroAngle = getHeadingForFieldCentric();
+
+        //MOVEMENT
+        double theta = Math.atan2(scaledY, scaledX) - gyroAngle - (Math.PI / 2);
+        double powerScale = Math.sqrt(Math.pow(scaledX, 2) + Math.pow(scaledY, 2));
+        double xPower = powerScale * (Math.sin(theta + Math.PI / 4));
+        double yPower = powerScale * (Math.sin(theta - Math.PI / 4));
+
+        leftFront.setPower(yPower - rotationInput);
+        leftRear.setPower(xPower - rotationInput);
+        rightRear.setPower(yPower + rotationInput);
+        rightFront.setPower(xPower + rotationInput);
+    }
+
+    public void resetHeading() {
+        reset_angle = getHeadingForFieldCentric() + reset_angle;
     }
 
     public Pose2d getLastError() {
@@ -334,5 +363,27 @@ public class Drive extends MecanumDrive implements UpdatingSystem {
         for (DcMotorEx motor : motors) {
             motor.setPIDFCoefficients(runMode, compensatedCoefficients);
         }
+    }
+
+    private double getHeadingForFieldCentric(){
+        Orientation angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+        double heading = angles.firstAngle;
+        if(heading < -180) {
+            heading = heading + 360;
+        }
+        else if(heading > 180){
+            heading = heading - 360;
+        }
+
+        double gyroAngle = (heading - reset_angle) * Math.PI / 180; //Convert gyroAngle into radians
+        if (gyroAngle <= 0) {
+            gyroAngle = gyroAngle + (Math.PI / 2);
+        } else if (0 < gyroAngle && gyroAngle < Math.PI / 2) {
+            gyroAngle = gyroAngle + (Math.PI / 2);
+        } else if (Math.PI / 2 <= gyroAngle) {
+            gyroAngle = gyroAngle - (3 * Math.PI / 2);
+        }
+        gyroAngle = -1 * gyroAngle;
+        return gyroAngle;
     }
 }
