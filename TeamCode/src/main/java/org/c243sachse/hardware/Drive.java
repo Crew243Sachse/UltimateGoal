@@ -156,7 +156,7 @@ public class Drive extends MecanumDrive implements UpdatingSystem {
         }
 
         leftFront.setDirection(DcMotorSimple.Direction.REVERSE);
-        leftRear.setDirection(DcMotorSimple.Direction.REVERSE);
+        rightFront.setDirection(DcMotorSimple.Direction.REVERSE);
     }
 
     @NonNull

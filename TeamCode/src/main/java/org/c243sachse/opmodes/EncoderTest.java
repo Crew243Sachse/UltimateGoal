@@ -9,7 +9,7 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 import java.util.Arrays;
 import java.util.List;
 
-@Disabled()
+//@Disabled()
 @TeleOp(name = "Encoder Test")
 public class EncoderTest extends OpMode {
     private DcMotorEx leftFront, leftRear, rightRear, rightFront;

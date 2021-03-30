@@ -20,7 +20,7 @@ public class DriveAndShoot extends CrewOpModeBase {
     private void updateDrive() {
         robot.drive.driveFieldCentric(
                 gamepad1.right_stick_x * moveScale,
-                gamepad1.right_stick_y * moveScale,
+                gamepad1.right_stick_y * moveScale * -1,
                 gamepad1.left_stick_x * rotateScale
         );
 //        robot.drive.setWeightedDrivePower(
